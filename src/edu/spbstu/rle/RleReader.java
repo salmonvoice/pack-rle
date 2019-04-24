@@ -43,7 +43,7 @@ public class RleReader extends Reader {
 
     @Override
     public void close() throws IOException {
-
+        this.reader.close();
     }
 
     public String getData() {

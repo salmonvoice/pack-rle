@@ -5,9 +5,13 @@ import java.io.Writer;
 
 public class RleWriter extends Writer {
 
-    private StringBuilder sb = new StringBuilder();
+    private StringBuilder sb;
     private Character curChar = null;
     private int counter = 0;
+
+    public RleWriter(StringBuilder sb) {
+        this.sb = sb;
+    }
 
     @Override
     public void write(char[] cbuf, int off, int len) throws IOException {
@@ -36,9 +40,5 @@ public class RleWriter extends Writer {
     public void close() throws IOException {
         sb.append(counter);
         sb.append(curChar);
-    }
-
-    public String getData() {
-        return sb.toString();
     }
 }

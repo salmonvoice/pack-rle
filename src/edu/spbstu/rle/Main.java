@@ -56,22 +56,19 @@ public class Main {
     }
 
     private static void pack(String inputFileName, String outputFileName) {
-
-
-
         StringBuilder sb = new StringBuilder();
         int bufSiz = BUF_SIZ;
         char[] buf = new char[bufSiz];
         try (Reader r = new FileReader(inputFileName)) {
-            RleWriter rleWriter = new RleWriter();
-            try(RleWriter rleWriter1 = rleWriter) {
+            StringBuilder rleSb = new StringBuilder();
+            try(Writer rleWriter = new RleWriter(rleSb)) {
                 int read;
                 while ((read = r.read(buf, 0, bufSiz)) != -1) {
-                    rleWriter1.write(buf, 0, read);
+                    rleWriter.write(buf, 0, read);
                     sb.append(buf, 0, read);
                 }
             }
-            String rleEncoded = rleWriter.getData();
+            String rleEncoded = rleSb.toString();
             String plainStr = sb.toString();
             if (rleEncoded.length() >= plainStr.length()) {
                 saveToFile('p', plainStr, outputFileName);
