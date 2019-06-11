@@ -60,7 +60,7 @@ public class Main {
         }
     }
 
-    private static void pack(String inputFileName, String outputFileName) {
+    public static void pack(String inputFileName, String outputFileName) {
         StringBuilder sb = new StringBuilder();
         int bufSiz = BUF_SIZ;
         char[] buf = new char[bufSiz];
@@ -99,7 +99,7 @@ public class Main {
         }
     }
 
-    private static void unpack(String inputFileName, String outputFileName) {
+    public static void unpack(String inputFileName, String outputFileName) {
         StringBuilder sb = new StringBuilder();
 
         try (Reader r = new FileReader(inputFileName)) {
