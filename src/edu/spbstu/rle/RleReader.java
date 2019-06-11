@@ -31,10 +31,15 @@ public class RleReader extends Reader {
                 if (Character.isDigit(c)) {
                     curInt = (curInt * 10) + Character.getNumericValue(c);
                 } else {
-                    for (int j = 0; j < curInt; j++) {
+                    // for sequences without counter:
+                    if (curInt == 0) {
                         sb.append(c);
+                    } else { // with counter:
+                        for (int j = 0; j < curInt; j++) {
+                            sb.append(c);
+                        }
+                        curInt = 0;
                     }
-                    curInt = 0;
                 }
             }
         }

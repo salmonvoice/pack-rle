@@ -32,7 +32,7 @@ public class MainTest {
     }
 
     @Test
-    public void cmdLineTest() throws IOException {
+    public void cmdLineTestWithOut() throws IOException {
         try {
             Main.main("-z", "-out", OUT_TEST_TXT, "input_test_pack.txt");
             String content = readFile(OUT_TEST_TXT, Charset.defaultCharset());
@@ -44,6 +44,25 @@ public class MainTest {
 
         } finally {
             Files.deleteIfExists(Paths.get(OUT_TEST_TXT));
+        }
+
+    }
+
+    @Test
+    public void cmdLineTestWithoutOut() throws IOException {
+        String filename = "input_test_pack.txt";
+        try {
+            Main.main("-z", filename);
+            String content = readFile(filename + Main.EXT, Charset.defaultCharset());
+            assertEquals("z19a11b14c13q", content);
+
+            Main.main("-u", filename + Main.EXT);
+            content = readFile(filename + Main.EXT + Main.UNPACKED_EXT, Charset.defaultCharset());
+            assertEquals("aaaaaaaaaaaaaaaaaaabbbbbbbbbbbccccccccccccccqqqqqqqqqqqqq", content);
+
+        } finally {
+            Files.deleteIfExists(Paths.get(filename + Main.EXT));
+            Files.deleteIfExists(Paths.get(filename + Main.EXT + Main.UNPACKED_EXT));
         }
 
     }

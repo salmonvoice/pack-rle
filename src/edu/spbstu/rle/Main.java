@@ -11,8 +11,9 @@ import java.io.Writer;
 public class Main {
 
 
-    private static final String EXT = ".rle";
-    public static final int BUF_SIZ = 1024;
+    public static final String EXT = ".rle";
+    public static final String UNPACKED_EXT = ".unpacked";
+    private static final int BUF_SIZ = 1024;
 
     private enum Command {PACK, UNPACK}
 
@@ -43,7 +44,7 @@ public class Main {
                 }
             } else {
                 inputFileName = args[1];
-                outputFileName = inputFileName + EXT;
+                outputFileName = inputFileName + ((command == Command.PACK)? EXT: UNPACKED_EXT);
             }
 
             switch (command) {

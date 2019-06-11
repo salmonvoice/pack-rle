@@ -26,11 +26,22 @@ public class RleWriter extends Writer {
                 if (curChar.equals(cbuf[i])) {
                     counter++;
                 } else {
-                    writer.append("" + counter);
-                    writer.append(curChar);
+                    appendEncodedSequence(counter, curChar);
                     curChar = cbuf[i];
                     counter = 1;
                 }
+            }
+        }
+    }
+
+    private void appendEncodedSequence(int counter, char curChar) throws IOException {
+        if (counter > 2) {
+            writer.append("" + counter);
+            writer.append(curChar);
+        } else {
+            // if sequence consist of 1 or 2 symbols:
+            for (int j = 0; j < counter; j++) {
+                writer.append(curChar);
             }
         }
     }
@@ -42,7 +53,6 @@ public class RleWriter extends Writer {
 
     @Override
     public void close() throws IOException {
-        writer.append("" + counter);
-        writer.append(curChar);
+        appendEncodedSequence(counter, curChar);
     }
 }

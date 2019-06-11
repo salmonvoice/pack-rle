@@ -17,7 +17,7 @@ public class RleWriterTest {
     @Test
     public void write() throws IOException {
 
-        try (Reader r = new StringReader("eeeerrrrryyyyyyyyyyyyyyyyyyyyyyyyyyy")) {
+        try (Reader r = new StringReader("eeeerrrrryyyyyyyyyyyyyyyyyyyyyyyyyyyfagttyyh")) {
 
             StringWriter rleSb = new StringWriter();
 
@@ -31,7 +31,7 @@ public class RleWriterTest {
             }
 
             String rleEncoded = rleSb.toString();
-            assertEquals("4e5r27y", rleEncoded);
+            assertEquals("4e5r27yfagttyyh", rleEncoded);
         }
     }
 }

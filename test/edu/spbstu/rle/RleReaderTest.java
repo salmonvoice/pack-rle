@@ -13,7 +13,7 @@ public class RleReaderTest {
 
     @Test
     public void read() throws IOException {
-        String str = "3a11e";
+        String str = "qw3a11eadf";
         StringReader stringReader = new StringReader(str);
         try (RleReader reader = new RleReader(stringReader)) {
             char[] buf = new char[BUF_SIZE];
@@ -22,7 +22,7 @@ public class RleReaderTest {
             while ((readChars = reader.read(buf)) != -1){
                 sb.append(buf, 0, readChars);
             }
-            assertEquals("aaaeeeeeeeeeee", sb.toString());
+            assertEquals("qwaaaeeeeeeeeeeeadf", sb.toString());
         }
     }
 }
