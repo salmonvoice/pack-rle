@@ -13,6 +13,7 @@ public class MainTest {
 
     public static final String PACKED_TXT = "packed.txt";
     public static final String UNPACKED_TXT = "unpacked.txt";
+    public static final String OUT_TEST_TXT = "outTest.txt";
 
     @Test
     public void packUnpack() throws IOException {
@@ -32,13 +33,18 @@ public class MainTest {
 
     @Test
     public void cmdLineTest() throws IOException {
-        Main.main("-z", "-out", "outTest.txt", "input_test_pack.txt");
-        String content = readFile("outTest.txt", Charset.defaultCharset());
-        assertEquals("z19a11b14c13q", content);
+        try {
+            Main.main("-z", "-out", OUT_TEST_TXT, "input_test_pack.txt");
+            String content = readFile(OUT_TEST_TXT, Charset.defaultCharset());
+            assertEquals("z19a11b14c13q", content);
 
-        Main.main("-u", "-out", UNPACKED_TXT, "outTest.txt");
-        content = readFile(UNPACKED_TXT, Charset.defaultCharset());
-        assertEquals("aaaaaaaaaaaaaaaaaaabbbbbbbbbbbccccccccccccccqqqqqqqqqqqqq", content);
+            Main.main("-u", "-out", UNPACKED_TXT, "outTest.txt");
+            content = readFile(UNPACKED_TXT, Charset.defaultCharset());
+            assertEquals("aaaaaaaaaaaaaaaaaaabbbbbbbbbbbccccccccccccccqqqqqqqqqqqqq", content);
+
+        } finally {
+            Files.deleteIfExists(Paths.get(OUT_TEST_TXT));
+        }
 
     }
 
