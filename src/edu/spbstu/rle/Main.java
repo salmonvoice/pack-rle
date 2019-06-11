@@ -16,7 +16,7 @@ public class Main {
 
     private enum Command {PACK, UNPACK}
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         if (args.length >= 2) {
             Command command;
             String cmdOption = args[0];
