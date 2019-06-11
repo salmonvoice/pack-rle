@@ -1,0 +1,28 @@
+package edu.spbstu.rle;
+
+import org.junit.Test;
+
+import java.io.IOException;
+import java.io.StringReader;
+
+import static org.junit.Assert.*;
+
+public class RleReaderTest {
+
+    public static final int BUF_SIZE = 3;
+
+    @Test
+    public void read() throws IOException {
+        String str = "3a11e";
+        StringReader stringReader = new StringReader(str);
+        try (RleReader reader = new RleReader(stringReader)) {
+            char[] buf = new char[BUF_SIZE];
+            StringBuilder sb = new StringBuilder();
+            int readChars;
+            while ((readChars = reader.read(buf)) != -1){
+                sb.append(buf, 0, readChars);
+            }
+            assertEquals("aaaeeeeeeeeeee", sb.toString());
+        }
+    }
+}

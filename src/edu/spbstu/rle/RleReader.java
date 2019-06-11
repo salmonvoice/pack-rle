@@ -3,15 +3,18 @@ package edu.spbstu.rle;
 import java.io.IOException;
 import java.io.Reader;
 
+/**
+ *  RLE reader from underlying character stream
+ */
 public class RleReader extends Reader {
 
+    public static final int BUF_SIZE = 1024;
     private StringBuilder sb = new StringBuilder();
     private Reader reader;
 
     private int curInt;
-    private char ch;
 
-    private char[] buf = new char[1024];
+    private char[] buf = new char[BUF_SIZE];
 
     public RleReader(Reader reader) {
         this.reader = reader;
@@ -46,7 +49,4 @@ public class RleReader extends Reader {
         this.reader.close();
     }
 
-    public String getData() {
-        return sb.toString();
-    }
 }

@@ -1,7 +1,12 @@
 package edu.spbstu.rle;
 
-import java.io.*;
-import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.io.Writer;
 
 public class Main {
 
@@ -13,7 +18,7 @@ public class Main {
 
     public static void main(String[] args) {
         if (args.length >= 2) {
-            Command command = Command.PACK;
+            Command command;
             String cmdOption = args[0];
             switch (cmdOption) {
                 case "-z":
@@ -60,7 +65,7 @@ public class Main {
         int bufSiz = BUF_SIZ;
         char[] buf = new char[bufSiz];
         try (Reader r = new FileReader(inputFileName)) {
-            StringBuilder rleSb = new StringBuilder();
+            StringWriter rleSb = new StringWriter();
             try(Writer rleWriter = new RleWriter(rleSb)) {
                 int read;
                 while ((read = r.read(buf, 0, bufSiz)) != -1) {
@@ -102,6 +107,7 @@ public class Main {
 
             Reader reader = r;
             if (mode == 'z') {
+                // erapping reader with RLE reader to
                 reader = new RleReader(r);
             }
             int bufSiz = BUF_SIZ;
